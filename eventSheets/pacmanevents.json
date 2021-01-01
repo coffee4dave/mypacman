@@ -50,6 +50,7 @@
 							"id": "play",
 							"objectClass": "Audio",
 							"sid": 450530484991801,
+							"disabled": true,
 							"parameters": {
 								"audio-file": "pacman_beginning",
 								"loop": "not-looping",
@@ -583,6 +584,69 @@
 				}
 			],
 			"sid": 567645776303915
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Enemies",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 586983128045713
+						}
+					],
+					"actions": [
+						{
+							"id": "find-path",
+							"objectClass": "ghostRed",
+							"sid": 854656346091696,
+							"behaviorType": "Pathfinding",
+							"parameters": {
+								"x": "pacman.X",
+								"y": "pacman.Y"
+							}
+						},
+						{
+							"id": "move-along-path",
+							"objectClass": "ghostRed",
+							"sid": 498385419948121,
+							"behaviorType": "Pathfinding"
+						}
+					],
+					"sid": 319068259277479
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "ghostRed",
+							"sid": 812975060137698,
+							"parameters": {
+								"object": "ghostOrange"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "rotate-clockwise",
+							"objectClass": "ghostOrange",
+							"sid": 590378190185459,
+							"parameters": {
+								"degrees": "180"
+							}
+						}
+					],
+					"sid": 704717360094386
+				}
+			],
+			"sid": 667958407586682
 		}
 	],
 	"sid": 788680481476793

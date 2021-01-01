@@ -4,7 +4,13 @@
 	"sid": 156187798412141,
 	"isGlobal": false,
 	"instanceVariables": [],
-	"behaviorTypes": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Pathfinding",
+			"name": "Pathfinding",
+			"sid": 808223593167336
+		}
+	],
 	"effectTypes": [],
 	"animations": {
 		"items": [
