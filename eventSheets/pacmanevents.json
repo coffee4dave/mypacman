@@ -1,0 +1,589 @@
+{
+	"name": "PacManEvents",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "NumTicks",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 574822912546906
+		},
+		{
+			"eventType": "variable",
+			"name": "PlayerScore",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 906634594170400
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Init",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 153600519538809
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "txP1Score",
+							"sid": 182316448442218,
+							"parameters": {
+								"text": "PlayerScore"
+							}
+						},
+						{
+							"id": "play",
+							"objectClass": "Audio",
+							"sid": 450530484991801,
+							"parameters": {
+								"audio-file": "pacman_beginning",
+								"loop": "not-looping",
+								"volume": "0",
+								"tag-optional": "\"\""
+							}
+						}
+					],
+					"sid": 999270208429773
+				}
+			],
+			"sid": 646188579617038
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "PlayerMovementandAnimation",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 613875238175789
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position-to-another-object",
+							"objectClass": "pacman",
+							"sid": 951091732160652,
+							"parameters": {
+								"object": "PlayerBox",
+								"image-point-optional": "0"
+							}
+						},
+						{
+							"id": "add-to-eventvar",
+							"objectClass": "System",
+							"sid": 964152211801294,
+							"parameters": {
+								"variable": "NumTicks",
+								"value": "1"
+							}
+						}
+					],
+					"sid": 508175136314544
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-moving",
+							"objectClass": "PlayerBox",
+							"sid": 533791265566855,
+							"behaviorType": "TileMovement",
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation-frame",
+							"objectClass": "pacman",
+							"sid": 239234480362785,
+							"parameters": {
+								"frame-number": "0"
+							}
+						}
+					],
+					"sid": 880938946226969
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-moving-direction",
+							"objectClass": "PlayerBox",
+							"sid": 844083970898644,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"direction": "right"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "pacman",
+							"sid": 830054259466455,
+							"parameters": {
+								"animation": "\"Right\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 801253926247353
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-moving-direction",
+							"objectClass": "PlayerBox",
+							"sid": 529183033586426,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"direction": "down"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "pacman",
+							"sid": 416813084646401,
+							"parameters": {
+								"animation": "\"Down\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 590318531289846
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-moving-direction",
+							"objectClass": "PlayerBox",
+							"sid": 338759807776496,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"direction": "left"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "pacman",
+							"sid": 183874636977855,
+							"parameters": {
+								"animation": "\"Left\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 764731730564435
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-moving-direction",
+							"objectClass": "PlayerBox",
+							"sid": 552751078444893,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"direction": "up"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "pacman",
+							"sid": 540942529223462,
+							"parameters": {
+								"animation": "\"up\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 901300134745251
+				}
+			],
+			"sid": 192187985502330
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "EatDot",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "PlayerBox",
+							"sid": 842958538255004,
+							"parameters": {
+								"object": "dots"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "destroy",
+							"objectClass": "dots",
+							"sid": 658315809815715
+						},
+						{
+							"id": "add-to-eventvar",
+							"objectClass": "System",
+							"sid": 924827151286529,
+							"parameters": {
+								"variable": "PlayerScore",
+								"value": "1"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "txP1Score",
+							"sid": 344216813524928,
+							"parameters": {
+								"text": "PlayerScore"
+							}
+						}
+					],
+					"sid": 479725646778510
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "PlayerBox",
+							"sid": 109644694118808,
+							"parameters": {
+								"object": "Energizer"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "flash",
+							"objectClass": "pacman",
+							"sid": 350125554488550,
+							"behaviorType": "Flash",
+							"parameters": {
+								"on-time": "0.1",
+								"off-time": "0.1",
+								"duration": "1.0"
+							}
+						},
+						{
+							"id": "destroy",
+							"objectClass": "Energizer",
+							"sid": 179988971270975
+						},
+						{
+							"id": "add-to-eventvar",
+							"objectClass": "System",
+							"sid": 170946555196786,
+							"parameters": {
+								"variable": "PlayerScore",
+								"value": "5"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "txP1Score",
+							"sid": 412599957015324,
+							"parameters": {
+								"text": "PlayerScore"
+							}
+						}
+					],
+					"sid": 252724061933514
+				}
+			],
+			"sid": 952547630648795
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Teleport",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "PlayerBox",
+							"sid": 889039270851617,
+							"parameters": {
+								"object": "ExitRight"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-grid-position",
+							"objectClass": "PlayerBox",
+							"sid": 630925253091856,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"x": "1",
+								"y": "12",
+								"instant": "instant"
+							}
+						}
+					],
+					"sid": 141967301964382
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "PlayerBox",
+							"sid": 121371681388402,
+							"parameters": {
+								"object": "ExitLeft"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-grid-position",
+							"objectClass": "PlayerBox",
+							"sid": 103302316557502,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"x": "17",
+								"y": "12",
+								"instant": "instant"
+							}
+						}
+					],
+					"sid": 737999682835801
+				}
+			],
+			"sid": 954805255111138
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "GameLogic",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 900972606114162,
+							"parameters": {
+								"first-value": "NumTicks",
+								"comparison": 0,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "txWelcome",
+							"sid": 174010123885328,
+							"parameters": {
+								"text": "\"READY!\""
+							}
+						},
+						{
+							"id": "flash",
+							"objectClass": "txWelcome",
+							"sid": 817650142907354,
+							"behaviorType": "Flash",
+							"parameters": {
+								"on-time": "0.1",
+								"off-time": "0.1",
+								"duration": "1"
+							}
+						}
+					],
+					"sid": 391795054162141
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 640861305568290,
+							"parameters": {
+								"first-value": "NumTicks",
+								"comparison": 0,
+								"second-value": "50"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "txWelcome",
+							"sid": 302324713048424,
+							"parameters": {
+								"text": "\"\""
+							}
+						}
+					],
+					"sid": 488707610471078
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 723783941433148,
+							"parameters": {
+								"first-value": "PlayerScore",
+								"comparison": 0,
+								"second-value": "176"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "txWelcome",
+							"sid": 643503777774144,
+							"parameters": {
+								"text": "\"WIN!\""
+							}
+						},
+						{
+							"id": "flash",
+							"objectClass": "txWelcome",
+							"sid": 957788256442093,
+							"behaviorType": "Flash",
+							"parameters": {
+								"on-time": "0.1",
+								"off-time": "0.1",
+								"duration": "1"
+							}
+						}
+					],
+					"sid": 424254554634610
+				}
+			],
+			"sid": 134471372899385
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Sound",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-animation-frame",
+							"objectClass": "pacman",
+							"sid": 531856939181129,
+							"parameters": {
+								"comparison": 0,
+								"number": "0"
+							},
+							"isInverted": true
+						},
+						{
+							"id": "is-tag-playing",
+							"objectClass": "Audio",
+							"sid": 605677048155266,
+							"parameters": {
+								"tag": "\"chomp\""
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"id": "set-silent",
+							"objectClass": "Audio",
+							"sid": 698806062926495,
+							"parameters": {
+								"mode": "not-silent"
+							}
+						},
+						{
+							"id": "play",
+							"objectClass": "Audio",
+							"sid": 119951482217109,
+							"parameters": {
+								"audio-file": "pacman_chomp",
+								"loop": "looping",
+								"volume": "0",
+								"tag-optional": "\"chomp\""
+							}
+						}
+					],
+					"sid": 735703553921756
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-animation-frame",
+							"objectClass": "pacman",
+							"sid": 724997874126194,
+							"parameters": {
+								"comparison": 0,
+								"number": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-looping",
+							"objectClass": "Audio",
+							"sid": 851708442675745,
+							"parameters": {
+								"tag": "\"chomp\"",
+								"state": "not-looping"
+							}
+						}
+					],
+					"sid": 941309698550209
+				}
+			],
+			"sid": 567645776303915
+		}
+	],
+	"sid": 788680481476793
+}

@@ -1,0 +1,60 @@
+{
+	"name": "PlayerBox",
+	"plugin-id": "Sprite",
+	"sid": 447567140720764,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "TileMovement",
+			"name": "TileMovement",
+			"sid": 575149386058800
+		},
+		{
+			"behaviorId": "scrollto",
+			"name": "ScrollTo",
+			"sid": 389880650894495
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 27,
+						"height": 27,
+						"originX": 0,
+						"originY": 0,
+						"originalSource": "",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 6558008,
+						"collisionPoly": {
+							"points": [
+								0.18518518518518517,
+								0.18518518518518517,
+								0.8148148148148148,
+								0.18518518518518517,
+								0.8148148148148148,
+								0.8148148148148148,
+								0.18518518518518517,
+								0.8148148148148148
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 181930821817200,
+				"name": "Animation 1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}
