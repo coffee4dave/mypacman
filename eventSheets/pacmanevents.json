@@ -50,7 +50,6 @@
 							"id": "play",
 							"objectClass": "Audio",
 							"sid": 450530484991801,
-							"disabled": true,
 							"parameters": {
 								"audio-file": "pacman_beginning",
 								"loop": "not-looping",
