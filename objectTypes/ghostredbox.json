@@ -1,26 +1,26 @@
 {
-	"name": "PlayerBox",
+	"name": "ghostRedBox",
 	"plugin-id": "Sprite",
-	"sid": 447567140720764,
+	"sid": 596030340416522,
 	"isGlobal": false,
 	"instanceVariables": [
 		{
 			"name": "Move",
 			"type": "string",
 			"desc": "",
-			"sid": 340726181271500
+			"sid": 784720668723990
 		}
 	],
 	"behaviorTypes": [
 		{
-			"behaviorId": "TileMovement",
-			"name": "TileMovement",
-			"sid": 575149386058800
+			"behaviorId": "Flash",
+			"name": "Flash",
+			"sid": 603648272604162
 		},
 		{
-			"behaviorId": "scrollto",
-			"name": "ScrollTo",
-			"sid": 389880650894495
+			"behaviorId": "TileMovement",
+			"name": "TileMovement",
+			"sid": 536898586414113
 		}
 	],
 	"effectTypes": [],
@@ -36,7 +36,7 @@
 						"originalSource": "",
 						"exportFormat": "png",
 						"exportQuality": 0.8,
-						"imageSpriteId": 6558008,
+						"imageSpriteId": 6041515,
 						"collisionPoly": {
 							"points": [
 								0.18518518518518517,
@@ -53,7 +53,7 @@
 						"duration": 1
 					}
 				],
-				"sid": 181930821817200,
+				"sid": 257598650133871,
 				"name": "Animation 1",
 				"isLooping": false,
 				"isPingPong": false,

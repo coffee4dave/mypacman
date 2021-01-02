@@ -13,6 +13,16 @@
 		},
 		{
 			"eventType": "variable",
+			"name": "GameOver",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 802066786067640
+		},
+		{
+			"eventType": "variable",
 			"name": "PlayerScore",
 			"type": "number",
 			"initialValue": "0",
@@ -90,6 +100,15 @@
 							}
 						},
 						{
+							"id": "set-position-to-another-object",
+							"objectClass": "ghostRed",
+							"sid": 883653711473753,
+							"parameters": {
+								"object": "ghostRedBox",
+								"image-point-optional": "0"
+							}
+						},
+						{
 							"id": "add-to-eventvar",
 							"objectClass": "System",
 							"sid": 964152211801294,
@@ -146,6 +165,15 @@
 								"animation": "\"Right\"",
 								"from": "beginning"
 							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "PlayerBox",
+							"sid": 115039928162923,
+							"parameters": {
+								"instance-variable": "Move",
+								"value": "\"Right\""
+							}
 						}
 					],
 					"sid": 801253926247353
@@ -171,6 +199,15 @@
 							"parameters": {
 								"animation": "\"Down\"",
 								"from": "beginning"
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "PlayerBox",
+							"sid": 517175191716155,
+							"parameters": {
+								"instance-variable": "Move",
+								"value": "\"Down\""
 							}
 						}
 					],
@@ -198,6 +235,15 @@
 								"animation": "\"Left\"",
 								"from": "beginning"
 							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "PlayerBox",
+							"sid": 475370672097116,
+							"parameters": {
+								"instance-variable": "Move",
+								"value": "\"Left\""
+							}
 						}
 					],
 					"sid": 764731730564435
@@ -224,9 +270,39 @@
 								"animation": "\"up\"",
 								"from": "beginning"
 							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "PlayerBox",
+							"sid": 302711473613138,
+							"parameters": {
+								"instance-variable": "Move",
+								"value": "\"Up\""
+							}
 						}
 					],
 					"sid": 901300134745251
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-moving",
+							"objectClass": "ghostRedBox",
+							"sid": 807656677973055,
+							"behaviorType": "TileMovement"
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Animate",
+							"sid": 929672174071973,
+							"parameters": [
+								"ghostRed.UID"
+							]
+						}
+					],
+					"sid": 516029524580636
 				}
 			],
 			"sid": 192187985502330
@@ -388,6 +464,36 @@
 						}
 					],
 					"sid": 737999682835801
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "ghostRedBox",
+							"sid": 747117309538064,
+							"parameters": {
+								"object": "ExitRight"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 392546796133457
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "ghostRedBox",
+							"sid": 491717291579891,
+							"parameters": {
+								"object": "ExitLeft"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 594494591317207
 				}
 			],
 			"sid": 954805255111138
@@ -498,6 +604,74 @@
 						}
 					],
 					"sid": 424254554634610
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "PlayerBox",
+							"sid": 714435335024065,
+							"parameters": {
+								"object": "ghostRedBox"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 498303752509925,
+							"parameters": {
+								"variable": "GameOver",
+								"value": "true"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "txWelcome",
+							"sid": 298855437084722,
+							"parameters": {
+								"text": "\"LOSE\""
+							}
+						},
+						{
+							"id": "flash",
+							"objectClass": "txWelcome",
+							"sid": 905080876184851,
+							"behaviorType": "Flash",
+							"parameters": {
+								"on-time": "0.1",
+								"off-time": "0.1",
+								"duration": "1"
+							}
+						},
+						{
+							"id": "play",
+							"objectClass": "Audio",
+							"sid": 404667298937927,
+							"parameters": {
+								"audio-file": "pacman_death",
+								"loop": "not-looping",
+								"volume": "0",
+								"tag-optional": "\"\""
+							}
+						},
+						{
+							"id": "wait",
+							"objectClass": "System",
+							"sid": 181390401244684,
+							"parameters": {
+								"seconds": "5"
+							}
+						},
+						{
+							"id": "restart-layout",
+							"objectClass": "System",
+							"sid": 831242379506173
+						}
+					],
+					"sid": 220291005925092
 				}
 			],
 			"sid": 134471372899385
@@ -587,7 +761,7 @@
 		{
 			"eventType": "group",
 			"disabled": false,
-			"title": "Enemies",
+			"title": "EnemyMovement",
 			"description": "",
 			"isActiveOnStart": true,
 			"children": [
@@ -595,57 +769,563 @@
 					"eventType": "block",
 					"conditions": [
 						{
-							"id": "every-tick",
-							"objectClass": "System",
-							"sid": 586983128045713
+							"id": "compare-instance-variable",
+							"objectClass": "ghostRedBox",
+							"sid": 143267403231597,
+							"parameters": {
+								"instance-variable": "Move",
+								"comparison": 0,
+								"value": "\"Right\""
+							}
 						}
 					],
 					"actions": [
 						{
-							"id": "find-path",
-							"objectClass": "ghostRed",
-							"sid": 854656346091696,
-							"behaviorType": "Pathfinding",
+							"id": "simulate-control",
+							"objectClass": "ghostRedBox",
+							"sid": 628938459453091,
+							"behaviorType": "TileMovement",
 							"parameters": {
-								"x": "pacman.X",
-								"y": "pacman.Y"
+								"control": "right"
 							}
-						},
-						{
-							"id": "move-along-path",
-							"objectClass": "ghostRed",
-							"sid": 498385419948121,
-							"behaviorType": "Pathfinding"
 						}
 					],
-					"sid": 319068259277479
+					"sid": 631116408071521
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "ghostRedBox",
+							"sid": 582622554894264,
+							"parameters": {
+								"instance-variable": "Move",
+								"comparison": 0,
+								"value": "\"Left\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "simulate-control",
+							"objectClass": "ghostRedBox",
+							"sid": 728868118661324,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"control": "left"
+							}
+						}
+					],
+					"sid": 658898770093153
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "ghostRedBox",
+							"sid": 317021011949777,
+							"parameters": {
+								"instance-variable": "Move",
+								"comparison": 0,
+								"value": "\"Up\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "simulate-control",
+							"objectClass": "ghostRedBox",
+							"sid": 536319488541052,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"control": "up"
+							}
+						}
+					],
+					"sid": 208599649058084
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "ghostRedBox",
+							"sid": 976246119955664,
+							"parameters": {
+								"instance-variable": "Move",
+								"comparison": 0,
+								"value": "\"Down\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "simulate-control",
+							"objectClass": "ghostRedBox",
+							"sid": 683873252259717,
+							"behaviorType": "TileMovement",
+							"parameters": {
+								"control": "down"
+							}
+						}
+					],
+					"sid": 880682480811405
 				},
 				{
 					"eventType": "block",
 					"conditions": [
 						{
 							"id": "on-collision-with-another-object",
-							"objectClass": "ghostRed",
-							"sid": 812975060137698,
+							"objectClass": "ghostRedBox",
+							"sid": 277502900117842,
 							"parameters": {
-								"object": "ghostOrange"
+								"object": "NPCmove"
 							}
 						}
 					],
 					"actions": [
 						{
-							"id": "rotate-clockwise",
-							"objectClass": "ghostOrange",
-							"sid": 590378190185459,
+							"id": "wait",
+							"objectClass": "System",
+							"sid": 640215144168615,
 							"parameters": {
-								"degrees": "180"
+								"seconds": "0.2"
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "ghostRedBox",
+							"sid": 545536299770589,
+							"parameters": {
+								"instance-variable": "Move",
+								"value": "\"\""
 							}
 						}
 					],
-					"sid": 704717360094386
+					"sid": 876554233974987,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "NPCmove",
+									"sid": 191221558822492,
+									"parameters": {
+										"instance-variable": "Random",
+										"comparison": 0,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "wait",
+									"objectClass": "System",
+									"sid": 634551967318786,
+									"parameters": {
+										"seconds": "0.2"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "ghostRedBox",
+									"sid": 999669382327616,
+									"parameters": {
+										"instance-variable": "Move",
+										"value": "NPCmove.Move"
+									}
+								}
+							],
+							"sid": 340867106027025
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "NPCmove",
+									"sid": 189147125159412,
+									"parameters": {
+										"instance-variable": "Random",
+										"comparison": 0,
+										"value": "1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 501536305166120,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 231988646796411,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"RightDown\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 828397008521149,
+											"parameters": {
+												"seconds": "0.2"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 946331558613711,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Down\", \"Right\")"
+											}
+										}
+									],
+									"sid": 594170802315089
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 882433420428708,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"RightUp\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 676652626197034,
+											"parameters": {
+												"seconds": "0.2"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 596527054933069,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Up\", \"Right\")"
+											}
+										}
+									],
+									"sid": 478711069910992
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 512581988366669,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"RightLeft\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 813967244404998,
+											"parameters": {
+												"seconds": "0.2"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 314045387842856,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Left\", \"Right\")"
+											}
+										}
+									],
+									"sid": 233473309892315
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 124338650644164,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"RightLeftUp\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 770730141022015,
+											"parameters": {
+												"seconds": "0.2"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 706256253929397,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Left\", \"Right\", \"Up\")"
+											}
+										}
+									],
+									"sid": 763427874493037
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 415107567194298,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"RightLeftDown\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 361597373193991,
+											"parameters": {
+												"seconds": "0.2"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 189737994813730,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Left\", \"Right\", \"Down\")"
+											}
+										}
+									],
+									"sid": 379365361324181
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 247658750638312,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"RightLeftDownUp\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 753689943015604,
+											"parameters": {
+												"seconds": "0.2"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 274012664923950,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Left\", \"Right\", \"Down\", \"Up\")"
+											}
+										}
+									],
+									"sid": 355327781423343
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 551057763804362,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"LeftDown\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 677716290966516,
+											"parameters": {
+												"seconds": "0.5"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 535516691124072,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Left\", \"Down\")"
+											}
+										}
+									],
+									"sid": 246634814401333
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 915959013010421,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"LeftUp\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 995408899093914,
+											"parameters": {
+												"seconds": "0.2"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 985596240692174,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Left\", \"Up\")"
+											}
+										}
+									],
+									"sid": 121708150544374
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "NPCmove",
+											"sid": 510305201204444,
+											"parameters": {
+												"instance-variable": "Move",
+												"comparison": 0,
+												"value": "\"UpDown\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 171273324850537,
+											"parameters": {
+												"seconds": "0.5"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "ghostRedBox",
+											"sid": 164209800480244,
+											"parameters": {
+												"instance-variable": "Move",
+												"value": "choose(\"Down\", \"Up\")"
+											}
+										}
+									],
+									"sid": 941846615871920
+								}
+							]
+						}
+					]
 				}
 			],
-			"sid": 667958407586682
+			"sid": 168964779740177
+		},
+		{
+			"functionName": "Animate",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "spriteID",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"sid": 705789288336823
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 641576459572819,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-by-unique-id",
+							"objectClass": "ghostRed",
+							"sid": 692538457533440,
+							"parameters": {
+								"unique-id": "spriteID"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "ghostRed",
+							"sid": 354855630293334,
+							"parameters": {
+								"animation": "ghostRedBox.Move",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 279213477257688
+				}
+			]
 		}
 	],
 	"sid": 788680481476793

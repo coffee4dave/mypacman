@@ -55,6 +55,14 @@
 			"bundled": false
 		},
 		{
+			"type": "plugin",
+			"id": "Touch",
+			"name": "Touch",
+			"author": "Scirra",
+			"version": "r225",
+			"bundled": false
+		},
+		{
 			"type": "behavior",
 			"id": "solid",
 			"name": "Solid",
@@ -126,7 +134,11 @@
 			"Audio",
 			"ghostRed",
 			"ghostOrange",
-			"ghostPink"
+			"ghostPink",
+			"ghostRedBox",
+			"txStatus",
+			"NPCmove",
+			"Touch"
 		],
 		"subfolders": []
 	},
@@ -165,6 +177,11 @@
 					"name": "pacman_beginning.webm",
 					"type": "audio/webm; codecs=opus",
 					"sid": 578839699194567
+				},
+				{
+					"name": "pacman_death.webm",
+					"type": "audio/webm; codecs=opus",
+					"sid": 855915310837483
 				}
 			],
 			"subfolders": []
