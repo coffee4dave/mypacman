@@ -3124,7 +3124,8 @@ MovingAngle(){return C3.toDegrees(this._a)},CurrentNode(){return this._moveNode}
 		C3.Behaviors.TileMovement.Acts.SimulateControl,
 		C3.Plugins.TiledBg.Cnds.CompareInstanceVar,
 		C3.Plugins.System.Exps.choose,
-		C3.Plugins.Sprite.Cnds.PickByUID
+		C3.Plugins.Sprite.Cnds.PickByUID,
+		C3.Plugins.Touch.Cnds.IsTouchingObject
 		];
 	};
 	self.C3_JsPropNameTable = [
@@ -3161,6 +3162,8 @@ MovingAngle(){return C3.toDegrees(this._a)},CurrentNode(){return this._moveNode}
 		{Random: 0},
 		{NPCmove: 0},
 		{Touch: 0},
+		{direction: 0},
+		{TouchInput: 0},
 		{NumTicks: 0},
 		{GameOver: 0},
 		{PlayerScore: 0},
